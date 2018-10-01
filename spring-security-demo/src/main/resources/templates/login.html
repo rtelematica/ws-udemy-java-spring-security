@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html xmlns:th="http://thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="description" content="">
+<meta name="author" content="">
+<title>Sing In</title>
+<link
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css"
+	rel="stylesheet"
+	integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M"
+	crossorigin="anonymous">
+<link
+	href="https://getbootstrap.com/docs/4.0/examples/signin/signin.css"
+	rel="stylesheet" crossorigin="anonymous" />
+</head>
+<body>
+	<div class="container">
+		<form class="form-signin" action="/login" method="POST">
+			<fieldset>
+				<h2 class="form-signin-heading">Sing In</h2>
+				<!-- use param.error assuming FormLoginConfigurer#failureUrl contains the query parameter error -->
+				<div class="error" th:if="${param.error != null}">
+					Failed to login. <span
+						th:if="${SPRING_SECURITY_LAST_EXCEPTION != null}"> Reason:
+						<span th:text="${SPRING_SECURITY_LAST_EXCEPTION.message}"></span>
+					</span>
+				</div>
+				<!-- the configured LogoutConfigurer#logoutSuccessUrl is /login?logout and contains the query param logout -->
+				<div th:if="${param.logout != null}">You have been logged out.</div>
+				<p>
+					<label for="username">Username</label> <input type="text"
+						id="username" name="username" class="form-control"
+						placeholder="Username" required autofocus />
+				</p>
+				<p>
+					<label for="password">Password</label> <input type="password"
+						id="password" name="password" class="form-control"
+						placeholder="Password" required />
+				</p>
+				<!-- if using RememberMeConfigurer make sure remember-me matches RememberMeConfigurer#rememberMeParameter 
+				<p>
+					<label for="remember-me">Remember Me?</label> <input
+						type="checkbox" id="remember-me" name="remember-me"
+						class="form-control" />
+				</p> -->
+				<div>
+					<button class="btn btn-lg btn-primary btn-block" type="submit">Sign
+						in</button>
+				</div>
+			</fieldset>
+		</form>
+	</div>
+</body>
+</html>
