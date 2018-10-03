@@ -1,5 +1,6 @@
 package com.mx.xvhx.domain;
 
+import java.io.Serializable;
 import java.util.Set;
 
 import javax.persistence.Entity;
@@ -19,7 +20,9 @@ import lombok.ToString;
 @Entity
 @EqualsAndHashCode(exclude = { "authorities" })
 @ToString(exclude = { "authorities" })
-public class User {
+public class User implements Serializable, UserWithouthAuthorities {
+
+	private static final long serialVersionUID = -2634440286044344835L;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -30,8 +33,6 @@ public class User {
 	private String password;
 
 	@ManyToMany(fetch = FetchType.LAZY)
-	@JoinTable(name = "user_authorities", 
-		joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"), 
-		inverseJoinColumns = @JoinColumn(name = "authority_id", referencedColumnName = "id"))
+	@JoinTable(name = "user_authorities", joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "authority_id", referencedColumnName = "id"))
 	private Set<Authority> authorities;
 }
