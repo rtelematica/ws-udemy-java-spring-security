@@ -46,6 +46,8 @@
 						type="checkbox" id="remember-me" name="remember-me"
 						class="form-control" />
 				</p> -->
+				<!-- CSRF token -->
+				<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
 				<div>
 					<button class="btn btn-lg btn-primary btn-block" type="submit">Sign
 						in</button>

@@ -6,7 +6,6 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -16,7 +15,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
 	@Autowired
 	private PasswordEncoder passwordEncoder;
-	
+
 	@Autowired
 	private UserDetailsService userDetailsService;
 
@@ -58,11 +57,10 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 		// see this for password encoder issue in Spring Security 5.
 		// https://stackoverflow.com/questions/46999940/spring-boot-passwordencoder-error
 		// user .password("{noop}123") to skip password encoder
-		
+
 		auth
-			.userDetailsService(userDetailsService)
-			.passwordEncoder(passwordEncoder);
-		
+				.userDetailsService(userDetailsService)
+				.passwordEncoder(passwordEncoder);
 
 	}
 
@@ -71,7 +69,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 	protected void configure(HttpSecurity http) throws Exception {
 
 		http
-				.csrf().disable()
+				//.csrf().disable() // enable CSRF
 				.authorizeRequests()
 				.antMatchers("/admin/**").hasAnyRole("ADMIN")
 				//.anyRequest().hasAnyRole("USER")
